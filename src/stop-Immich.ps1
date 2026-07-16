@@ -1,5 +1,5 @@
 ﻿# Immich 停止スクリプト
-# PowerShell 7 での実行を想定しています。
+# Windows標準のPowerShell 5.1以降で動作します。PowerShell 7の追加インストールは不要です。
 
 $ErrorActionPreference = "Stop"
 

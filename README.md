@@ -2,6 +2,17 @@
 
 WindowsメインPC上の **Docker Desktop + WSL2 + Ubuntu** で動かしているImmichを、BATファイルのダブルクリックで起動・停止するための補助ツールです。
 
+Windows 10／11に標準搭載されている **Windows PowerShell 5.1** で動作します。PowerShell 7の追加インストールは不要です。
+
+## 必要な環境
+
+- Windows 10／11
+- Docker Desktop
+- WSL2
+- Ubuntu
+- Windows PowerShell 5.1以降（Windows標準。PowerShell 7は不要）
+- 導入済みのImmichと `docker-compose.yml`
+
 ## 初期設定
 
 このリポジトリの初期値は、「ほどよくPC生活」のImmich導入記事に合わせています。

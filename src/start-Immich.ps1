@@ -1,5 +1,5 @@
 ﻿# Immich 起動スクリプト
-# PowerShell 7 での実行を想定しています。
+# Windows標準のPowerShell 5.1以降で動作します。PowerShell 7の追加インストールは不要です。
 
 $ErrorActionPreference = "Stop"
 
@@ -78,7 +78,7 @@ $immichTryCount = [Math]::Ceiling($ImmichWaitSeconds / 2)
 
 for ($i = 0; $i -lt $immichTryCount; $i++) {
     try {
-        $response = Invoke-WebRequest -Uri $ImmichUrl -Method Get -TimeoutSec 5 -SkipHttpErrorCheck
+        $response = Invoke-WebRequest -Uri $ImmichUrl -Method Get -TimeoutSec 5 -UseBasicParsing
         if ($response.StatusCode -lt 500) {
             $immichReady = $true
             break
