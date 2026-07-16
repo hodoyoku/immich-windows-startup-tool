@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Immich 起動・停止ツール README</title>
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --card: #ffffff;
+      --text: #222;
+      --muted: #666;
+      --border: #ddd;
+      --accent: #9eff00;
+      --accent-dark: #65a800;
+      --warn-bg: #fff8e6;
+      --warn-border: #f0c35a;
+      --code-bg: #1f2328;
+      --code-text: #f5f5f5;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 32px 16px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", "Meiryo", sans-serif;
+      line-height: 1.75;
+    }
+
+    main {
+      max-width: 920px;
+      margin: 0 auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 2rem;
+      line-height: 1.3;
+      border-left: 8px solid var(--accent);
+      padding-left: 14px;
+    }
+
+    h2 {
+      margin-top: 36px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--border);
+      font-size: 1.35rem;
+    }
+
+    h3 {
+      margin-top: 24px;
+      font-size: 1.08rem;
+    }
+
+    p {
+      margin: 12px 0;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .quick-start {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .action-card {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      background: #fbfbfb;
+    }
+
+    .action-card strong {
+      display: block;
+      font-size: 1.15rem;
+      margin-bottom: 6px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #1e1e1e;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-right: 6px;
+    }
+
+    .note {
+      border-left: 6px solid var(--accent);
+      background: #f7ffe8;
+      padding: 14px 16px;
+      border-radius: 10px;
+      margin: 18px 0;
+    }
+
+    .warn {
+      border-left: 6px solid var(--warn-border);
+      background: var(--warn-bg);
+      padding: 14px 16px;
+      border-radius: 10px;
+      margin: 18px 0;
+    }
+
+    code {
+      padding: 2px 5px;
+      border-radius: 5px;
+      background: #eef0f2;
+      font-family: "Consolas", "Cascadia Code", monospace;
+      font-size: 0.95em;
+    }
+
+    pre {
+      overflow-x: auto;
+      background: var(--code-bg);
+      color: var(--code-text);
+      padding: 16px;
+      border-radius: 12px;
+      line-height: 1.55;
+      font-size: 0.92rem;
+    }
+
+    pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 10px;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f0f2f4;
+      text-align: left;
+    }
+
+    ul, ol {
+      padding-left: 1.4em;
+    }
+
+    .footer {
+      margin-top: 40px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 12px;
+      }
+
+      main {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 1.55rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Immich 起動・停止ツール README</h1>
+  <p class="lead">
+    このツールは、WindowsメインPC上で <strong>Docker Desktop + WSL2 + Ubuntu</strong> を使っているImmichを、batファイルのダブルクリックで起動・停止するための補助ツールです。
+  </p>
+
+  <div class="note">
+    <strong>通常使うのは2つだけ。</strong><br>
+    <code>Immich起動.bat</code> と <code>Immich停止.bat</code> をダブルクリックして使います。
+  </div>
+
+  <h2>まずやること</h2>
+
+  <ol>
+    <li>ZIPを解凍します。</li>
+    <li>フォルダごと <code>C:\Immich</code> に配置します。</li>
+    <li><code>Immich起動.bat</code> をダブルクリックします。</li>
+    <li>使い終わったら <code>Immich停止.bat</code> をダブルクリックします。</li>
+  </ol>
+
+  <div class="quick-start">
+    <div class="action-card">
+      <span class="badge">起動</span>
+      <strong>Immich起動.bat</strong>
+      <p>Docker Desktopの起動確認、保存先ドライブ確認、Immich起動、ブラウザ表示まで行います。</p>
+    </div>
+
+    <div class="action-card">
+      <span class="badge">停止</span>
+      <strong>Immich停止.bat</strong>
+      <p>Immich関連コンテナを停止し、設定に応じてDocker Desktopも終了します。</p>
+    </div>
+  </div>
+
+  <h2>同梱ファイル</h2>
+
+  <pre><code>Immich起動.bat
+Immich停止.bat
+README.html
+src/
+├─ Start-Immich.ps1
+└─ Stop-Immich.ps1</code></pre>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ファイル</th>
+        <th>役割</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>Immich起動.bat</code></td>
+        <td>起動用。通常はこれをダブルクリックします。</td>
+      </tr>
+      <tr>
+        <td><code>Immich停止.bat</code></td>
+        <td>停止用。使い終わったらこれをダブルクリックします。</td>
+      </tr>
+      <tr>
+        <td><code>src\Start-Immich.ps1</code></td>
+        <td>実際の起動処理を行うPowerShellスクリプトです。</td>
+      </tr>
+      <tr>
+        <td><code>src\Stop-Immich.ps1</code></td>
+        <td>実際の停止処理を行うPowerShellスクリプトです。</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>必要な環境</h2>
+
+  <ul>
+    <li>Windows</li>
+    <li>Docker Desktop</li>
+    <li>WSL2</li>
+    <li>Ubuntu</li>
+    <li>PowerShell 7</li>
+    <li>Immichの <code>docker-compose.yml</code> 一式</li>
+  </ul>
+
+  <p>PowerShell 7が入っているか確認するには、PowerShellで以下を実行します。</p>
+
+  <pre><code>pwsh -v</code></pre>
+
+  <h2>環境が違う場合に変更する場所</h2>
+
+  <p>
+    初期値は「ほどよくPC生活」のImmich導入記事に合わせています。環境が違う場合だけ、<code>src</code> フォルダ内の <code>.ps1</code> ファイル上部にある設定項目を変更してください。
+  </p>
+
+  <h3>Start-Immich.ps1</h3>
+
+  <pre><code>$DistroName = "Ubuntu"
+$ImmichDir = "~/immich"
+$PhotoPath = "F:\ImmichData\Photos"
+$ImmichUrl = "http://localhost:8080"</code></pre>
+
+  <div class="warn">
+    <strong>重要:</strong><br>
+    導入記事では通常のUbuntuユーザーの <code>~/immich</code> にImmichを配置しています。
+    WSLコマンドに <code>-u root</code> を付けると <code>~/immich</code> が <code>/root/immich</code> を指すため、このツールはWSLの既定ユーザーで実行します。
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>設定項目</th>
+        <th>意味</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>$DistroName</code></td>
+        <td>WSLのUbuntu名です。<code>wsl -l -v</code> で確認できます。</td>
+      </tr>
+      <tr>
+        <td><code>$ImmichDir</code></td>
+        <td>Ubuntu内のImmichフォルダです。通常は <code>~/immich</code> のままでOKです。</td>
+      </tr>
+      <tr>
+        <td><code>$PhotoPath</code></td>
+        <td>外部ライブラリとして使う写真・動画フォルダです。導入記事では <code>F:\ImmichData\Photos</code> を使います。</td>
+      </tr>
+      <tr>
+        <td><code>$ImmichUrl</code></td>
+        <td>ブラウザで開くImmichのURLです。ポートを変えている場合は変更してください。</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Stop-Immich.ps1</h3>
+
+  <pre><code>$DistroName = "Ubuntu"
+$ImmichDir = "~/immich"
+$QuitDockerDesktop = $true
+$ShutdownWsl = $false</code></pre>
+
+  <table>
+    <thead>
+      <tr>
+        <th>設定項目</th>
+        <th>意味</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>$QuitDockerDesktop</code></td>
+        <td><code>$true</code> ならImmich停止後にDocker Desktopも終了します。Immich以外のDockerコンテナも使っている場合は <code>$false</code> 推奨です。</td>
+      </tr>
+      <tr>
+        <td><code>$ShutdownWsl</code></td>
+        <td><code>$true</code> にすると停止時に <code>wsl --shutdown</code> も実行します。他のWSL作業も止まるため、初期値は <code>$false</code> です。</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>起動時に行う処理</h2>
+
+  <ol>
+    <li>Docker Desktopが起動しているか確認</li>
+    <li>起動していなければDocker Desktopを起動</li>
+    <li>写真保存先ドライブが見えるか確認</li>
+    <li>Ubuntu側からDockerが使えるまで待機</li>
+    <li><code>docker compose up -d</code> でImmichを起動</li>
+    <li><code>immich_server</code> が <code>healthy</code> になるまで待機</li>
+    <li>ブラウザでImmichを開く</li>
+  </ol>
+
+  <h2>停止時に行う処理</h2>
+
+  <ol>
+    <li><code>docker compose down</code> でImmich関連コンテナを停止</li>
+    <li>設定に応じてDocker Desktopを終了</li>
+    <li>設定に応じてWSLを停止</li>
+  </ol>
+
+  <div class="warn">
+    <strong>注意:</strong><br>
+    Docker DesktopでImmich以外のコンテナも動かしている場合は、<code>$QuitDockerDesktop = $false</code> にしてください。
+    <code>$true</code> のままだと、Docker Desktop自体を終了します。
+  </div>
+
+  <h2>トラブル時の確認</h2>
+
+  <h3>Ubuntu側でDockerが使えない場合</h3>
+
+  <p>Docker DesktopのWSL Integrationを確認してください。</p>
+
+  <pre><code>Docker Desktop
+Settings
+Resources
+WSL Integration
+Ubuntu を ON
+Apply & Restart</code></pre>
+
+  <h3>Ubuntu名が違う場合</h3>
+
+  <p>PowerShellで以下を実行します。</p>
+
+  <pre><code>wsl -l -v</code></pre>
+
+  <p>
+    表示名が <code>Ubuntu-24.04</code> などになっている場合は、<code>$DistroName</code> を同じ名前に変更してください。
+  </p>
+
+  <h3>Immichが起動しない場合</h3>
+
+  <p>Ubuntuで以下を実行して状態を確認してください。</p>
+
+  <pre><code>cd ~/immich
+docker compose ps
+docker compose logs --tail=120 immich-server
+docker compose logs --tail=120 database</code></pre>
+
+  <h3>写真保存先が見つからない場合</h3>
+
+  <p>
+    <code>Start-Immich.ps1</code> の <code>$PhotoPath</code> が自分の環境と合っているか確認してください。
+  </p>
+
+  <pre><code>$PhotoPath = "F:\ImmichData\Photos"</code></pre>
+
+  <h2>このツールの想定用途</h2>
+
+  <p>
+    このツールは、常時稼働サーバーではなく、WindowsメインPCで必要な時だけImmichを使う環境向けです。
+  </p>
+
+  <p>
+    専用サーバーで常時稼働させる場合は、Dockerの自動起動やsystemd管理の方が向いている場合があります。
+  </p>
+
+  <div class="footer">
+    <p>
+      このスクリプトは、WindowsメインPCでImmichを安定して起動・停止するための補助ツールです。
+      環境によってパス名、Ubuntu名、ポート番号などが異なるため、必要に応じて設定を変更してください。
+    </p>
+  </div>
+</main>
+</body>
+</html>
